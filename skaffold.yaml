@@ -1,0 +1,22 @@
+apiVersion: skaffold/v2beta7
+kind: Config
+metadata:
+  name: mariadb-node-example
+build:
+  artifacts:
+  - image: edge-mariadb-backend
+    context: ./backend
+    sync:
+      manual:
+      - src: './backend/*'
+        dest: /app/*
+  - image: edge-mariadb-frontend
+    context: ./frontend
+    sync:
+      manual:
+      - src: './frontend/*'
+        dest: /app/*
+deploy:
+  kubectl:
+    manifests:
+      - ./k8s/*

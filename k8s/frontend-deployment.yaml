@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edge-mariadb-frontend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: edge-mariadb-frontend
+  template:
+    metadata:
+      labels:
+        app: edge-mariadb-frontend
+    spec:
+      containers:
+      - name: edge-mariadb-frontend
+        image: edge-mariadb-frontend:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000

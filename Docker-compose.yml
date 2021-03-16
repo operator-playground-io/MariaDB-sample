@@ -1,0 +1,38 @@
+version: '3'
+services: 
+  backend:
+    build: 
+      dockerfile: Dockerfile
+      context: ./backend
+    ports: 
+      - '4000:4000'
+    environment:
+      - DB_HOST=mariadb
+    depends_on: 
+      - mariadb
+  frontend:
+    build: 
+      dockerfile: Dockerfile
+      context: ./frontend
+    ports: 
+      - '3000:3000'
+    environment: 
+      - REACT_APP_SERVER_URL=http://localhost:4000/api/contacts
+    depends_on: 
+      - backend
+
+  mariadb:
+    image: mariadb
+    # restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: test
+      MYSQL_PASSWORD: 12345678
+    ports: 
+      - 3306:3306
+
+# networks:
+#   default:
+#     external:
+#       name: mariadb_default
