@@ -85,7 +85,7 @@ const createContacts = async () => {
 
   try {
     const response = await pool.query(query);
-    console.log("Results: ", response);
+    console.log("Result: ", response);
     result = response;
   } catch (err) {
     console.log("Database error: ", err.message);
