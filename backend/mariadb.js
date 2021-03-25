@@ -41,6 +41,7 @@ if (DB_DATABASE) {
 console.log("Database config: ", dbConfig);
 
 const pool = mariadb.createPool(dbConfig);
+console.log('Created db pool: ', pool)
 
 const createDatabase = async (database) => {
   console.log('Create database ', database);
@@ -64,7 +65,7 @@ const createDatabase = async (database) => {
     console.log("Result: ", response);
     result = response;
   } catch (err) {
-    console.log("Database error: ", err.message);
+    console.log("Database error occured when creating database: ", err.message);
     throw err;
   } finally {
     await conn.end();
@@ -88,7 +89,7 @@ const createContacts = async () => {
     console.log("Result: ", response);
     result = response;
   } catch (err) {
-    console.log("Database error: ", err.message);
+    console.log("Database error occured when creating CONTACTS table: ", err.message);
     throw err;
   } 
 
