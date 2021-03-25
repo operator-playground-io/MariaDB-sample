@@ -54,7 +54,7 @@ const createDatabase = async (database) => {
   console.log('Create database connection using config ', newDbConfig);
   const conn = await mariadb.createConnection(newDbConfig);
 
-  const query = `CREATE DATABASE IF NOT EXISTS ${database}`;
+  const query = `CREATE DATABASE IF NOT EXISTS \`${database}\``;
   console.log('Create database query: ', query);
 
   let result;
@@ -259,7 +259,7 @@ const getContactsCount = async () => {
 };
 
 const initDatabase = async () => {
-  await createDatabase(DB_DATABASE);
+  // await createDatabase(DB_DATABASE);
   await createContacts();
 }
 
