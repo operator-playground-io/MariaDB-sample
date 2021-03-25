@@ -66,7 +66,11 @@ const ContactsState = (props) => {
       const data = res.data;
       console.log(data);
 
-      dispatch({ type: ADD_CONTACT, payload: data });
+      if ( data ) {
+        contact.id = data;
+        dispatch({ type: ADD_CONTACT, payload: contact });
+      }
+      // dispatch({ type: ADD_CONTACT, payload: data });
     } catch (error) {
       console.error(error.response);
       setError(error.response ? error.response.data.msg : error.message);

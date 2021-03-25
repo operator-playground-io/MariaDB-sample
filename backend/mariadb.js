@@ -123,24 +123,33 @@ const getContacts = async () => {
 const addContact = async (contact) => {
   console.log("Add contact ", contact);
 
-  const  query= "INSERT INTO CONTACTS (NAME, EMAIL) VALUES (?, ?) RETURNING *";
+  const  query= "INSERT INTO CONTACTS (NAME, EMAIL) VALUES (?, ?)";
+  //RETURNING CLAUSE SINCE MARIADB 10.5
+  // const  query= "INSERT INTO CONTACTS (NAME, EMAIL) VALUES (?, ?) RETURNING *";
   const  values= [contact.name, contact.email];
 
-  let result;
+  let rowCount, insertId, result;
 
   try {
     const response = await pool.query(query, values);
     console.log("Result: ", response);
+    rowCount = response.affectedRows;
+    insertId = response.insertId;
 
-    if ( response.length > 0 ) {
-      result = response[0];
-    }
+    //This works with RETURNING clause
+    // if ( response.length > 0 ) {
+    //   result = response[0];
+    // }
   } catch (err) {
     console.log("Database error: ", err.message);
     throw err;
   } 
 
-  console.log("Row added: ", result);
+  result = insertId;
+  console.log("ID added: ", result);
+
+  // result = rowCount ? true : false;
+  // console.log("Row added: ", result);
 
   return result;
 };
