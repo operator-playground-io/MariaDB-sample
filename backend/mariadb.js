@@ -41,7 +41,7 @@ if (DB_DATABASE) {
 console.log("Database config: ", dbConfig);
 
 const pool = mariadb.createPool(dbConfig);
-console.log('Created db pool: ', pool)
+// console.log('Created db pool: ', pool)
 
 const createDatabase = async (database) => {
   console.log('Create database ', database);
